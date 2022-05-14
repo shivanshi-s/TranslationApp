@@ -1,26 +1,36 @@
-let btnTranslate = document.querySelector("#translate-button");
-let txtInput = document.querySelector("#translate-input");
-let outputDiv = document.querySelector('#translate-output');
+let btn = document.querySelector("#translate-button");
+let input = document.querySelector("#translate-input");
+let output = document.querySelector('#translate-output');
 
-
-var serverURL = 'https://api.funtranslations.com/translate/yoda.json'
+let serverURL = " https://api.funtranslations.com/translate/yoda.json"
 
 function getTranslationURL(text) {
-   return serverURL + "?" + "text="+ text
+   return serverURL + "?" + "text=" + text;
 }
+
+btn.addEventListener("click", clickEventHandler);
 
 function clickEventHandler() {
-var inputText = txtInput.value ;  //input 
 
-// calling the server for processing 
-fetch(getTranslationURL(inputText))
-   .then(function responseHandler(response) {
-      return response.json();
-   })
-   .then(function logJSON(json) {
-      var translatedText = json.contents.translated;
-      outputDiv.innerText = translatedText; // our output
-   
-   })
+   let textInput = input.value; //input
+
+// process the information on the server
+   fetch(getTranslationURL(textInput))
+      .then(function responseHandler(response){
+         return response.json();
+      })
+      .then(function log(json){
+         output.innerText = json.contents.translated; //output
+         console.log(json);
+      })
+
 }
-btnTranslate.addEventListener("click", clickEventHandler)
+
+
+// fetch(url)
+// .then(function responseHandler(response){
+//    return response.json();
+// })
+// .then( function log(json) {
+//    console.log(json);
+// })
